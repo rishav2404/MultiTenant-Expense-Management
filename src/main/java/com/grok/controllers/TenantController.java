@@ -13,7 +13,7 @@ import com.grok.entity.Tenant;
 import com.grok.services.TenantService;
 
 @RestController
-@RequestMapping("/api/tenants")
+@RequestMapping("/tenant")
 public class TenantController {
 
     @Autowired
