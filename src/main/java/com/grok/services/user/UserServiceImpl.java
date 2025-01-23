@@ -15,6 +15,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user){
+        boolean userExists = userRepository.existsByEmail(user.getEmail());
+        if (userExists) {
+            throw new ResourceNotFoundException("User with email " + user.getEmail() + " already exists");
+        }
         user.getExpenses().forEach(expense -> {
             expense.setUser(user);
         });

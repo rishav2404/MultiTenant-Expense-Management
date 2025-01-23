@@ -7,4 +7,5 @@ import com.grok.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    boolean existsByEmail(String email);
 }
