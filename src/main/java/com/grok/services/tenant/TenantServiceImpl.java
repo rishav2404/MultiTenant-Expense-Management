@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.grok.entity.Tenant;
 import com.grok.exceptions.ResourceNotFoundException;
@@ -36,7 +34,7 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Tenant updateTenant(Integer tenantId, Tenant tenantDetails) {
         Tenant tenant = tenantRepository.findById(tenantId)
-                .orElseThrow(() -> new ResourceNotFoundException("No record Fould to update for id: " + tenantId));
+                .orElseThrow(() -> new ResourceNotFoundException("No record found to update for id: " + tenantId));
 
         if (Objects.nonNull(tenantDetails.getName())
                 && !"".equalsIgnoreCase(
@@ -49,7 +47,7 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public void deleteTenantById(Integer tenantId) {
         Tenant tenant = tenantRepository.findById(tenantId)
-                .orElseThrow(() -> new ResourceNotFoundException("No record Fould to delete for id: " + tenantId));
+                .orElseThrow(() -> new ResourceNotFoundException("No record found to delete for id: " + tenantId));
         tenantRepository.delete(tenant);
     }
 
