@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,7 +27,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "tenant_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnoreProperties({"users"})
     private Tenant tenant;
 
     @Column(nullable = false)
@@ -48,7 +50,14 @@ public class User {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Expense> expenses;
 
+    public User(Integer id, Tenant tenant, String email, String password, String role) {
+        this.id = id;
+        this.tenant = tenant;
+        this.email = email;
+        this.password = password;
+        this.role = role; 
+    }
 }
