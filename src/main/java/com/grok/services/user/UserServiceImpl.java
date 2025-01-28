@@ -19,9 +19,11 @@ public class UserServiceImpl implements UserService {
         if (userExists) {
             throw new ResourceNotFoundException("User with email " + user.getEmail() + " already exists");
         }
-        user.getExpenses().forEach(expense -> {
-            expense.setUser(user);
-        });
+        if(user.getExpenses() != null && !user.getExpenses().isEmpty()){
+            user.getExpenses().forEach(expense -> {
+                expense.setUser(user);
+            });
+        }
         return userRepository.save(user);
     }
 
