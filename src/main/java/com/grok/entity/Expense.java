@@ -99,4 +99,12 @@ public class Expense {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public Expense(User user, BigDecimal amount, String category, String description, String status) {
+        this.user = user;
+        this.amount = amount;
+        this.category = category;
+        this.description = description;
+        this.status = status;
+    }
 }

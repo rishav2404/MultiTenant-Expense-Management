@@ -1,8 +1,10 @@
 package com.grok.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -50,7 +52,12 @@ public class Tenant {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<User> users;
 
+    public Tenant(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+        this.users = users != null ? users : new ArrayList<>();
+    }
 }
